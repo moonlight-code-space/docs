@@ -4,7 +4,7 @@ sidebarTitle: "CC Switch"
 description: "填地址和密钥 → 获取模型 → 选择模型 → 保存并启用。"
 ---
 
-已经安装 CC Switch 和要用的 Codex / Claude Code，就直接开始；没有的话先看 [下载与打开工具](/start/install-tools)。
+还没安装？先看 [下载与打开工具](/start/install-tools)。
 
 ## 1. 添加 Faro，填地址和密钥
 
@@ -20,7 +20,7 @@ description: "填地址和密钥 → 获取模型 → 选择模型 → 保存并
     其他选项先保持默认。若出现 **上游格式**，选择 **Responses（原生）**；**使用完整 URL** 保持关闭。
 
     <Accordion title="查看填写示例图">
-      按 CC Switch v3.20.2 重建的字段示意，非实机截图；请填自己的密钥。
+      CC Switch v3.20.2 字段示意，非实机截图。
       <Frame><img src="/images/cc-switch-codex.png" alt="CC Switch Codex 填写示例：API 请求地址 https://faroapi.com/v1，API Key 填自己的密钥" /></Frame>
     </Accordion>
   </Tab>
@@ -33,7 +33,7 @@ description: "填地址和密钥 → 获取模型 → 选择模型 → 保存并
     其他选项先保持默认。若出现 **上游格式**，选择 **Anthropic Messages（原生）**；**使用完整 URL** 保持关闭。
 
     <Accordion title="查看填写示例图">
-      按 CC Switch v3.20.2 重建的字段示意，非实机截图；图中地址末尾没有斜杠，与上面地址相同。
+      CC Switch v3.20.2 字段示意，非实机截图。
       <Frame><img src="/images/cc-switch-claude.png" alt="CC Switch Claude Code 填写示例：通用地址 https://faroapi.com/，API Key 填自己的密钥" /></Frame>
     </Accordion>
   </Tab>
@@ -41,22 +41,16 @@ description: "填地址和密钥 → 获取模型 → 选择模型 → 保存并
 
 ## 2. 获取模型，选中要用的名字
 
-填好后，找到模型区域的 **获取模型列表**。
+点击 **获取模型列表**。
 
-打开 [Faro 模型广场](https://faroapi.com/pricing)，看好模型和价格，再在获取的列表中选中**完整名称相同**的模型。Codex 选供 Codex 使用的模型；Claude Code 选供 Claude Code 使用的模型。拿不准就把模型名字发给客服确认。
+打开 [模型广场](https://faroapi.com/pricing)，选择适用于 Codex 或 Claude Code 的模型，再回到列表选中**相同的完整名字**。
 
-如果你的版本没有获取按钮，可以把模型广场中的完整名字复制到模型栏。不需要写配置代码。
+没有获取按钮时，直接复制模型广场中的完整名字填写。
 
 ## 3. 保存，再启用
 
-点 **添加 / 保存**，回到 Faro 卡片点 **启用**。不要只保存就关闭窗口。
+点 **添加 / 保存**，回到 Faro 卡片点 **启用**。
 
-先保存手头的任务，再正常退出并重新打开 Codex / Claude Code，**新建对话**。第一次发一句“你好”确认能回复；这次测试可能计费。
-
-想确认是否用了 Faro，可以查看 [使用日志](https://faroapi.com/console/log) 中有没有刚才的记录。
-
-<Note>保留原来的供应商配置，不要删除。以后想切回去，在 CC Switch 重新启用原来的那张卡片即可；不要同时用两个管理器反复修改同一个工具。</Note>
+重新打开 Codex / Claude Code，**新建对话**即可使用。
 
 获取失败或保存后不能用？看 [常见问题](/help/errors)。
-
-字段按 [CC Switch v3.20.2](https://github.com/farion1231/cc-switch/releases/tag/v3.20.2) 核对，其他版本位置可能略有不同。

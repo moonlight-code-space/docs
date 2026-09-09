@@ -24,6 +24,7 @@ for (const page of publishedPages) {
   const file = `${page}.mdx`;
   if (!existsSync(join(root, file))) { report(file, 'missing page'); continue; }
   const body = read(file);
+  if (/测试.{0,10}计费|第一次.{0,15}短话|长对话、长文件可能花费/.test(body)) report(file, 'unnecessary testing/cost reminder in beginner guide');
   if (/```(?:json|toml|python|bash|powershell)\b/.test(body)) report(file, 'advanced code belongs in internal drafts, not beginner guides');
   if (/your-package|your-cli|support@yourcompany|Requirement one|Describe how someone/.test(body)) report(file, 'starter template content');
   if (!/^---\n[\s\S]*?title: "[^"\n]+"[\s\S]*?\n---\n/.test(body)) report(file, 'missing title/frontmatter');
