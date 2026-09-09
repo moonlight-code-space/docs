@@ -1,0 +1,50 @@
+---
+title: "让回复边生成边显示"
+sidebarTitle: "流式输出"
+description: "收到 HTTP 200 还不够，要检查输出过程和结束状态。"
+---
+
+下面使用 Chat Completions 流式输出。先按 [第一次 API 调用](/api/first-request) 准备环境变量和 SDK。
+
+```python
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.environ["FARO_API_KEY"],
+    base_url="https://faroapi.com/v1",
+    timeout=120.0,
+    max_retries=0,
+)
+finish_reason = None
+with client.chat.completions.create(
+    model=os.environ["FARO_MODEL"],
+    messages=[{"role": "user", "content": "用一句话介绍你能做什么。"}],
+    stream=True,
+) as stream:
+    for chunk in stream:
+        if not chunk.choices:
+            continue
+        choice = chunk.choices[0]
+        if choice.delta.content:
+            print(choice.delta.content, end="", flush=True)
+        if choice.finish_reason is not None:
+            finish_reason = choice.finish_reason
+print()
+if finish_reason is None:
+    raise RuntimeError("连接结束，但没有收到生成结束标记；请检查日志。")
+if finish_reason != "stop":
+    print("本次结束原因：", finish_reason, "；请确认是否截断、过滤或需要工具调用。")
+```
+
+## 放到网站里时注意
+
+密钥放在自己的服务端，不要放进网页 JavaScript。反向代理不要把 SSE 缓冲成一次性返回，也不要对认证请求、流式响应或用户内容做公共缓存。
+
+客户端超时、代理超时和上游生成时长分别检查。网络断开后不要盲目重发整条任务；先确认上一条是否已经生成或计费。
+
+不同接口的结束事件不同。Responses、Anthropic Messages 不能直接套用上面的 Chat 分片解析代码。
+
+`length` 表示达到输出限制，`content_filter` 表示内容过滤，`tool_calls` 表示接下来需要处理工具调用；它们都不等于“完整文字回答已生成”。异常或断流先看 [常见报错](/help/errors)，不要自动重放整条请求。
+
+参考：[OpenAI Python SDK 流式示例](https://github.com/openai/openai-python)。

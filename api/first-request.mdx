@@ -1,0 +1,122 @@
+---
+title: "用 Python 发出第一条请求"
+sidebarTitle: "第一次 API 调用"
+description: "先验证连接，再加入自己的业务代码。密钥从环境变量读取。"
+---
+
+不写代码可以跳过这页，使用 [CC Switch](/tools/cc-switch)。下面只验证一次普通文本调用，不会替你调整生产配置。
+
+## 1. 准备一个独立测试文件夹
+
+先从 [Python 官网](https://www.python.org/downloads/) 安装 Python 3。打开一个你自己新建的空文件夹，用代码编辑器的 **在集成终端中打开** 功能进入它；下面的文件都放在这个文件夹，不要放进现有业务项目。
+
+例如使用 VS Code：先 **文件 → 打开文件夹** 选中这个空文件夹，再 **终端 → 新建终端**。左侧新建 `test_faro.py` 保存代码，底部终端执行命令。Windows 确认终端类型是 PowerShell。没有代码编辑器、也不熟悉终端时，可以让 [AI 逐步带你做](/start/ask-ai)，不用一次看懂后面的全部步骤。
+
+<Tabs>
+  <Tab title="macOS">
+    在这个文件夹的终端中依次运行：
+
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+    python -m pip install openai
+    ```
+  </Tab>
+  <Tab title="Windows · PowerShell">
+    在这个文件夹的终端中依次运行。后续直接使用虚拟环境中的 Python，不需要为激活脚本放宽系统执行策略：
+
+    ```powershell
+    py -3 -m venv .venv
+    .\.venv\Scripts\python.exe -m pip install openai
+    ```
+  </Tab>
+</Tabs>
+
+如果找不到 `python3` 或 `py`，先解决 Python 安装问题；这时还没有连接 Faro。
+
+## 2. 设置密钥和模型
+
+按 [安全输入密钥](/start/terminal-and-files) 在当前终端设置 `FARO_API_KEY`，然后继续设置模型。把 `YOUR_MODEL_ID` 换成模型广场复制的完整名称：
+
+<Tabs>
+  <Tab title="macOS">
+    ```bash
+    export FARO_MODEL='YOUR_MODEL_ID'
+    ```
+  </Tab>
+  <Tab title="Windows · PowerShell">
+    ```powershell
+    $env:FARO_MODEL = 'YOUR_MODEL_ID'
+    ```
+  </Tab>
+</Tabs>
+
+变量只在这个终端有效，下面仍在这里运行代码。不要把真实密钥写进代码，也不用把它发给 AI。
+
+## 3. 选择与模型匹配的接口
+
+两份示例选一份，复制到测试文件夹中新建的 `test_faro.py` 并保存。文件扩展名应为 `.py`，不是 `.py.txt`。运行一次可能计费。
+
+<Tabs>
+  <Tab title="Chat Completions">
+    ```python
+    import os
+    from openai import OpenAI
+
+    client = OpenAI(
+        api_key=os.environ["FARO_API_KEY"],
+        base_url="https://faroapi.com/v1",
+        timeout=60.0,
+        max_retries=0,
+    )
+    result = client.chat.completions.create(
+        model=os.environ["FARO_MODEL"],
+        messages=[{"role": "user", "content": "只回复：连接成功"}],
+    )
+    print(result.choices[0].message.content)
+    ```
+  </Tab>
+  <Tab title="Responses">
+    ```python
+    import os
+    from openai import OpenAI
+
+    client = OpenAI(
+        api_key=os.environ["FARO_API_KEY"],
+        base_url="https://faroapi.com/v1",
+        timeout=60.0,
+        max_retries=0,
+    )
+    result = client.responses.create(
+        model=os.environ["FARO_MODEL"],
+        input="只回复：连接成功",
+    )
+    print(result.output_text)
+    ```
+  </Tab>
+</Tabs>
+
+两份示例选一份。关闭 SDK 自动重试是为了让第一次排错更清楚；正式程序的重试策略要区分可重试错误与参数错误，并设置次数上限。
+
+## 4. 运行并确认结果
+
+<Tabs>
+  <Tab title="macOS">
+    ```bash
+    python test_faro.py
+    ```
+  </Tab>
+  <Tab title="Windows · PowerShell">
+    ```powershell
+    .\.venv\Scripts\python.exe test_faro.py
+    ```
+  </Tab>
+</Tabs>
+
+收到输出后，在 Faro 日志核对这次请求。如果程序提示缺少 `FARO_MODEL` 或 `FARO_API_KEY`，说明当前进程没有读到环境变量，不是模型故障。
+
+这里的 60 秒是 SDK 网络操作的超时设置，不是严格的整条任务总时长，也不是所有模型都能在 60 秒内完成的承诺。长上下文、思考和生图请求需要按实际情况设置。
+
+遇到 `KeyError` 就回第 2 步，在运行代码的同一个终端重新设置对应变量。其他失败先看 [常见报错](/help/errors)，还不确定可用 [反馈模板](/help/contact) 求助。
+
+参考：[OpenAI Python SDK](https://github.com/openai/openai-python)。

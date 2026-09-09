@@ -1,72 +1,27 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
-  "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
-  },
+  "name": "Faro API",
+  "description": "从创建密钥到第一次调用，按步骤把 Faro API 接入 CC Switch、Codex++ 和常用 AI 工具。",
+  "colors": {"primary": "#155EEF", "light": "#155EEF", "dark": "#70A5FF"},
+  "logo": {"light": "/logo/light.svg", "dark": "/logo/dark.svg"},
   "favicon": "/favicon.svg",
-  "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
-  }
+  "appearance": {"default": "system"},
+  "redirects": [{"source": "/quickstart", "destination": "/start/quickstart"}],
+  "icons": {"library": "lucide"},
+  "search": {"prompt": "搜索工具、配置或报错…"},
+  "contextual": {"options": ["copy", "view"]},
+  "navigation": {"languages": [{"language": "zh", "default": true, "groups": [
+    {"group": "先用起来", "pages": ["index", "start/ask-ai", "start/quickstart", "start/install-tools", "start/api-key", "start/address-and-model"]},
+    {"group": "配置 AI 工具", "pages": ["tools/cc-switch", "tools/codex-plus", "tools/claude-code", "tools/codex", "tools/other-clients"]},
+    {"group": "写进自己的程序", "pages": ["start/terminal-and-files", "api/first-request", "api/streaming", "api/images"]},
+    {"group": "用量与账户", "pages": ["account/wallet", "account/logs", "account/cost-and-cache", "account/security"]},
+    {"group": "遇到问题", "pages": ["help/errors", "help/connection", "help/contact"]}
+  ]}]},
+  "navbar": {"links": [{"label": "模型广场", "href": "https://faroapi.com/pricing"}, {"label": "模型监控", "href": "https://faroapi.com/about"}], "primary": {"type": "button", "label": "进入控制台", "href": "https://faroapi.com/console"}},
+  "footer": {"links": [
+    {"header": "Faro API", "items": [{"label": "网站首页", "href": "https://faroapi.com/"}, {"label": "获取 API 密钥", "href": "https://faroapi.com/console/token"}]},
+    {"header": "使用帮助", "items": [{"label": "第一次使用", "href": "/start/quickstart"}, {"label": "排查报错", "href": "/help/errors"}, {"label": "联系支持", "href": "/help/contact"}]},
+    {"header": "其他项目", "items": [{"label": "AI 代充", "href": "https://shop.faroapi.com/"}, {"label": "Open Study", "href": "https://study.faroapi.cn/"}]}
+  ]}
 }

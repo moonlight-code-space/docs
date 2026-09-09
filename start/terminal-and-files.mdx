@@ -1,0 +1,48 @@
+---
+title: "手动配置前：打开文件和安全输入密钥"
+sidebarTitle: "终端与配置文件"
+description: "只供手动配置和 Python 示例使用；已经通过管理器配置的不用重复操作。"
+---
+
+## 先找对窗口
+
+**Mac**：按 Command + 空格，搜索“终端”。**Windows**：在开始菜单搜索“PowerShell”。下面的命令填在这个窗口，不是 AI 聊天框。
+
+## 找到配置文件，先备份
+
+<Tabs>
+  <Tab title="macOS">
+    在访达按 **Shift + Command + G**，输入 `~/.codex`（Codex）或 `~/.claude`（Claude Code），回车打开。复制一份要修改的文件作为备份，再用纯文本编辑器打开原文件。
+  </Tab>
+  <Tab title="Windows">
+    在文件资源管理器的地址栏输入 `%USERPROFILE%\.codex`（Codex）或 `%USERPROFILE%\.claude`（Claude Code），回车。复制要修改的文件作为备份，再用文本编辑器打开原文件。开启 **查看 → 显示 → 文件扩展名**，避免把它保存成 `config.toml.txt` 或 `settings.json.txt`。
+  </Tab>
+</Tabs>
+
+Codex 使用 `config.toml`，Claude Code 使用 `settings.json`。文件夹不存在时，先按 [安装教程](/start/install-tools) 确认客户端已装好。如果仍没有配置文件，可以在用户目录创建对应文件夹和纯文本文件。**已有文件只合并需要的字段，不整份覆盖；同名配置段不能重复出现。**
+
+## 安全输入 API 密钥
+
+下面只设置当前终端使用的 `FARO_API_KEY`，不会永久保存。密钥在本机输入，不会作为明文写进这条命令的历史记录；也不要用截图或聊天把它发出去。
+
+<Tabs>
+  <Tab title="macOS · zsh">
+    运行后粘贴密钥，按回车。输入不显示是正常的。
+
+    ```bash
+    read -rs 'FARO_API_KEY?粘贴 Faro 密钥后按回车：'; printf '\n'
+    export FARO_API_KEY
+    ```
+  </Tab>
+  <Tab title="Windows · PowerShell">
+    ```powershell
+    $faroSecret = Read-Host "粘贴 Faro 密钥" -AsSecureString
+    $env:FARO_API_KEY = [System.Net.NetworkCredential]::new('', $faroSecret).Password
+    Remove-Variable faroSecret
+    ```
+  </Tab>
+</Tabs>
+
+**接下来的启动命令必须在同一个终端执行。** 关闭终端后，下次使用要重新输入。想通过界面长期保存供应商配置，改用 [CC Switch](/tools/cc-switch)，不要同时混用两套管理方式。
+
+密钥会进入本机程序的运行环境，不代表它被加密储存在内存中；不要在不信任的电脑上使用。也不要执行会打印全部环境变量的命令来求助。

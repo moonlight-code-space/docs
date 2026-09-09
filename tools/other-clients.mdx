@@ -1,0 +1,25 @@
+---
+title: "其他支持自定义 API 的工具"
+sidebarTitle: "其他客户端"
+description: "以 Cline 为例。关键不是工具名字，而是它支持哪种接口。"
+---
+
+## Cline 的 OpenAI Compatible 配置
+
+在 Cline 设置中选择 **OpenAI Compatible**，填写：
+
+| 字段 | 内容 |
+| --- | --- |
+| Base URL | `https://faroapi.com/v1` |
+| API Key | Faro 创建的密钥 |
+| Model ID | 支持 Chat Completions 和所需工具能力的完整模型 ID |
+
+高级参数先按该模型实际支持的范围设置。不要仅因为客户端有「图片」「工具」「超大上下文」开关，就认为所选模型一定支持。
+
+保存后新建短对话并核对 Faro 日志。Cline 的配置入口与字段依据 [Cline 官方说明](https://docs.cline.bot/provider-config/openai-compatible)。
+
+## 其他工具怎么判断能不能接
+
+查看是否允许填写自定义 Base URL、API Key 和模型名，并确认使用的协议。某些客户端只支持自家账号登录，不能靠修改一个网址就变成 API 客户端。
+
+如果它要求完整 URL，使用 [接口地址表](/start/address-and-model)；如果会自动补 `/v1`，不要重复填写。Claude 客户端限制与协议支持也要单独确认。

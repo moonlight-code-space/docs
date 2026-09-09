@@ -1,0 +1,43 @@
+---
+title: "Codex：保留官方配置，单独添加 Faro"
+sidebarTitle: "Codex 手动配置"
+description: "这页用于官方 Codex CLI；Codex++ 请看它自己的教程。"
+---
+
+如果你使用 CC Switch 管理 Codex，请回到 [CC Switch 教程](/tools/cc-switch)，不要再让两套方法同时修改配置。
+
+还没安装？先完成 [客户端安装](/start/install-tools)。文件位置和备份方法见 [打开配置文件](/start/terminal-and-files)。
+
+## 添加 Faro 供应商
+
+先备份用户目录里的 `.codex/config.toml`。保留原来的默认设置，添加以下段落；如果同名段落已经存在，编辑它，不要重复追加。
+
+```toml
+[model_providers.faro]
+name = "Faro API"
+base_url = "https://faroapi.com/v1"
+env_key = "FARO_API_KEY"
+wire_api = "responses"
+```
+
+不要用 `openai` 作为新供应商名，也不要把 `wire_api` 改成 `chat` 来碰运气。下面启动时再指定 Faro 支持 Responses 的完整模型 ID。
+
+## 提供密钥并启动
+
+在当前终端设置 `FARO_API_KEY`，见 [安全输入密钥](/start/terminal-and-files)。从同一个终端运行：
+
+```bash
+codex -c 'model_provider="faro"' -m YOUR_MODEL_ID
+```
+
+把 `YOUR_MODEL_ID` 换成实际模型名称。这样只在本次启动选择 Faro，原来的默认供应商不需要被覆盖。旧教程中的 `[profiles.faro]` 写法与新版 profile 机制不同，这里用一次性启动参数避免混淆。
+
+发送一句短话，在 Faro 使用日志确认请求。不要为了接入第三方 API 直接删除 `auth.json` 或改掉整个电脑的默认登录。
+
+## 桌面端呢？
+
+桌面程序不一定继承终端环境变量，也不一定支持与 CLI 相同的 profile 选择流程。不要在终端配置成功后就认为桌面端已经生效。想按界面配置桌面应用，请看 [Codex++ 桌面管理工具教程](/tools/codex-plus)，不要直接把这页的终端步骤套到桌面端。
+
+关闭终端后，下次需要重新输入密钥，再运行上面的启动命令。失败时先看 [常见报错](/help/errors)，或用 [反馈模板](/help/contact) 求助。
+
+参考：[Codex 官方高级配置](https://learn.chatgpt.com/docs/config-file/config-advanced)。

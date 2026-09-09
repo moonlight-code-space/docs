@@ -1,0 +1,37 @@
+---
+title: "地址、密钥和模型怎么填"
+sidebarTitle: "地址与模型"
+description: "最常见的问题是地址多了一段路径，或者模型名没有完整复制。"
+---
+
+## 地址对照
+
+| 使用方式 | Base URL / API 地址 | 协议 |
+| --- | --- | --- |
+| Claude Code，或 CC Switch 的 Claude 配置 | `https://faroapi.com` | Anthropic Messages |
+| Codex，或 CC Switch 的 Codex 配置 | `https://faroapi.com/v1` | OpenAI Responses |
+| 普通 OpenAI 兼容聊天客户端 | `https://faroapi.com/v1` | Chat Completions |
+| Codex++ 管理工具（纯 API） | `https://faroapi.com/v1` | Responses API；[查看专用教程](/tools/codex-plus) |
+
+这张表适用于填写 **Base URL** 的地方。如果工具要求的是「完整请求地址」，请按下面的接口路径填写，而不是只填网站首页。
+
+| 接口用途 | 完整请求地址 |
+| --- | --- |
+| 查询令牌可见模型 | `https://faroapi.com/v1/models` |
+| Chat Completions 对话 | `https://faroapi.com/v1/chat/completions` |
+| Responses 对话 | `https://faroapi.com/v1/responses` |
+| Anthropic Messages 对话 | `https://faroapi.com/v1/messages` |
+
+<Warning>不要把 `/console`、`/pricing` 或文档站地址填进 API 地址。也不要让工具拼出 `/v1/v1/...`。</Warning>
+
+## 模型名要完整复制
+
+打开 [模型广场](https://faroapi.com/pricing)，复制你选中模型的 ID。后缀可能代表不同的线路、规格或价格，不能随便删掉。
+
+文档示例里的 `YOUR_MODEL_ID` 是占位符，运行前必须替换。模型广场里能看到某个模型，不等于它支持所有协议、所有客户端，或你的令牌一定有权限使用。
+
+选择时先确定你要用的工具：Claude Code 需要对应的 Anthropic Messages 线路；Codex 通常先选支持 Responses 的线路。打开模型详情，检查接口说明、分组和客户端限制。**如果页面没有写清，先向支持确认这个完整模型名能否在你的工具里使用，不要靠反复切换协议猜。**
+
+## 请求模型与实际模型不同，是不是错了？
+
+不一定。渠道可能将你选择的名称映射到上游名称。日志中的请求模型用于定位你发的请求，实际模型用于查看映射结果。失败时要结合状态码、错误正文和请求时间，不能仅凭有没有映射图标判断。

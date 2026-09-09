@@ -1,0 +1,8 @@
+{
+  "name": "faro-api-docs",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {"dev": "node --require ./scripts/local-only.cjs ./node_modules/mint/index.js dev --no-open --port 3240", "validate": "mint validate", "links": "mint broken-links --check-anchors --check-redirects", "check": "node scripts/check-docs.mjs"},
+  "devDependencies": {"mint": "4.2.882"},
+  "engines": {"node": ">=22"}
+}

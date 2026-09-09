@@ -1,0 +1,72 @@
+---
+title: "图片模型：先选对接口"
+sidebarTitle: "图片生成"
+description: "都能生图，不代表都使用同一个请求格式。"
+---
+
+在模型广场查看模型的接口说明与规格。带有 `1k`、`2k`、`4k` 等后缀时，完整复制名称；不要把后缀删掉后期待仍生成相同规格。
+
+## 为什么后台测试失败，客户端却能用？
+
+后台选择的测试端点可能与模型实际支持的接口不同。例如某个 Gemini 图片模型不接受 OpenAI Images 的请求格式，使用统一生图测试就可能在转换阶段失败。先核对端点，别只重复点测试。
+
+| 需要确认 | 说明 |
+| --- | --- |
+| 接口 | Images、Responses、Gemini 原生或线路说明中的其他方式 |
+| 模型 ID | 含完整规格与线路后缀 |
+| 输入 | 纯文字生成，还是需要上传图片编辑 |
+| 返回格式 | 图片 URL、Base64 或接口专用内容块 |
+| 超时 | 高分辨率生成通常需要更长等待 |
+
+## 使用 OpenAI Images 接口的模型
+
+仅在线路明确支持 `/v1/images/generations` 时使用下面的最小示例。未指定规格和质量时会使用服务端默认值，运行前先看该模型的价格说明。
+
+先按 [Python 准备步骤](/api/first-request) 安装 SDK、设置密钥，把 `FARO_MODEL` 换成对应图片模型 ID。将下面代码保存为 `test_image.py`，用同样方法运行。
+
+**运行前**先检查测试文件夹，若已有 `faro-image-1.png`、`.jpg`、`.webp` 或 `.bin`，先把旧文件改名或移到自己的其他文件夹保存。不要等生成之后才发现文件名重复，更不要因为保存失败就重新付费生成。
+
+```python
+import os
+import base64
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.environ["FARO_API_KEY"],
+    base_url="https://faroapi.com/v1",
+    timeout=240.0,
+    max_retries=0,
+)
+result = client.images.generate(
+    model=os.environ["FARO_MODEL"],
+    prompt="白色背景上的一只蓝色纸鹤，无文字。",
+    n=1,
+)
+for index, item in enumerate(result.data or [], start=1):
+    if item.url:
+        print("图片地址：", item.url)
+    elif item.b64_json:
+        data = base64.b64decode(item.b64_json, validate=True)
+        if data.startswith(b"\x89PNG\r\n\x1a\n"):
+            extension = "png"
+        elif data.startswith(b"\xff\xd8\xff"):
+            extension = "jpg"
+        elif data.startswith(b"RIFF") and data[8:12] == b"WEBP":
+            extension = "webp"
+        else:
+            extension = "bin"
+        filename = f"faro-image-{index}.{extension}"
+        with open(filename, "xb") as output:
+            output.write(data)
+        print("已保存：", filename)
+```
+
+<Warning>这条请求会生成图片，可能计费。240 秒是 SDK 网络操作的超时设置，不是严格的总耗时上限，也不表示超时后上游就会停止生成或计费。</Warning>
+
+等待期间不要重复提交。图片 URL 可能有有效期；收到结果后按你的数据保存规则及时保存。
+
+返回 URL 时，复制完整地址到浏览器打开并保存图片；不要把带访问参数的地址随意公开。返回 Base64 时，代码会在测试文件夹保存图片，双击打开即可。文件已存在会停止写入而不覆盖，先保留旧图片并换一个文件名。若保存为 `.bin`，说明这份示例没有识别返回格式，不代表图片一定无效；带上不含密钥的返回格式说明联系支持。
+
+失败先看 [常见报错](/help/errors)，或使用 [反馈模板](/help/contact)。
+
+参考：[OpenAI Python SDK](https://github.com/openai/openai-python)。

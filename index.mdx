@@ -1,20 +1,51 @@
 ---
-title: "Introduction"
-description: "Welcome to your project"
+title: "把 Faro 接进你常用的 AI 工具"
+sidebarTitle: "从这里开始"
+description: "准备好地址、密钥和模型，跟着步骤完成第一次调用。"
+icon: "house"
 ---
 
-Write a short description of your product here. What it does, who it's for, and what they can accomplish with it.
+## 不会配置？先让 AI 带你做
 
-<Tip>
-  Ready to make this your own? Start by editing this page. Update your `docs.json` file to customize your site. Then fill out the [Quickstart](/quickstart) page.
-</Tip>
+把本页链接或文档内容发给你已经能用的 AI，例如豆包、ChatGPT。告诉它你的电脑系统和准备使用的软件，让它一次只教一步。你不需要先看懂整篇教程。
 
-<Card title="Quickstart" icon="rocket" href="/quickstart">
-  This card links to the quickstart page in your project.
-</Card>
-<Card title="Components" icon="puzzle-piece" href="https://mintlify.com/docs/components">
-  Add cards, callouts, steps, tabs, and more to design and structure your pages.
-</Card>
-<Card title="Settings" icon="gear" href="https://mintlify.com/docs/organize/settings">
-  Set your site name, branding, and navigation in the `docs.json` file.
-</Card>
+<Prompt description="复制这段话，和本页链接一起发给 AI" actions={["copy"]}>
+请根据我提供的 Faro API 文档，带我完成配置。我是新手，请先问我用的是 Windows 还是 macOS，以及准备配置 CC Switch、Codex++ 还是其他工具。一次只告诉我一步：在哪里点、填什么、完成后应该看到什么，等我确认再继续。不要索要或让我发送 API 密钥、密码、Cookie；密钥由我直接在本机填写。以文档和我实际的软件版本为准，遇到报错先解释原因，不要反复重装或重试。测试前说明可能计费，先征得我的确认，再让我发送一句短话，并到 Faro 使用日志确认请求。
+</Prompt>
+
+已经有能操作电脑的 Agent？也可以让它帮助配置，但先备份已有设置，密钥仍由你在本机输入。[看 AI 辅助配置的两种方式](/start/ask-ai)。如果还没有可用的 AI，直接按下面的教程操作即可。
+
+## 接下来只需要三个东西
+
+Faro 提供 API 接口。你可以在 CC Switch、Codex++ 等工具里配置它，也可以接到自己的程序中。
+
+<div className="faro-setup">
+  <div><strong>01 · 地址</strong><p>告诉工具向哪里发送请求。</p><code>https://faroapi.com</code></div>
+  <div><strong>02 · 密钥</strong><p>在「令牌管理」里创建，只填进你信任的工具。</p><code>API Key</code></div>
+  <div><strong>03 · 模型</strong><p>从「模型广场」复制完整名称，别凭印象手打。</p><code>模型 ID</code></div>
+</div>
+
+<Note>上面的地址是网站根地址。Codex 和多数 OpenAI 兼容工具需要在末尾加 `/v1`；各篇教程会给出可以直接复制的地址。</Note>
+
+## 你准备怎么用？
+
+<CardGroup cols={2}>
+  <Card title="第一次使用 Faro" icon="flag" href="/start/quickstart">从注册、创建密钥开始，走完一遍再配置工具。</Card>
+  <Card title="用 CC Switch 配置" icon="toggle-right" href="/tools/cc-switch">在界面里添加 Faro，再切换到 Claude Code 或 Codex。</Card>
+  <Card title="在 Codex++ 中使用" icon="monitor" href="/tools/codex-plus">打开管理工具，添加 Faro，再从 Codex++ 启动。</Card>
+  <Card title="接进自己的程序" icon="code" href="/api/first-request">用一条短请求检查地址、密钥和模型。</Card>
+</CardGroup>
+
+## 已经配置过，但用不了？
+
+先看报错，不要来回重装软件。
+
+| 你遇到的情况 | 先看这里 |
+| --- | --- |
+| 不知道地址要不要加 `/v1` | [地址与模型怎么填](/start/address-and-model) |
+| 提示 401、403、404 或 429 | [按报错排查](/help/errors) |
+| 一直转圈、没出字、输出中断 | [连接慢与流式问题](/help/connection) |
+| 钱花得比预期快 | [计费和缓存怎么看](/account/cost-and-cache) |
+| 配好后想确认有没有走 Faro | [查看使用日志](/account/logs) |
+
+<Tip>Faro API 余额、ChatGPT / Claude 会员和 Open Study 的账户额度不是同一回事。使用 API 前，先确认你要用的是哪项服务。</Tip>

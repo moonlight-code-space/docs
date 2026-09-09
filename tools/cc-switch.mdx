@@ -1,0 +1,118 @@
+---
+title: "用 CC Switch 配置 Faro"
+sidebarTitle: "CC Switch"
+description: "先选 Claude Code 或 Codex，再添加 Faro。两个页面的地址不一样。"
+---
+
+CC Switch 用来管理供应商配置；真正发送任务的是 Claude Code、Codex 等客户端。**只装 CC Switch，还不能在里面聊天。** 先按 [安装与打开工具](/start/install-tools) 装好你要使用的客户端和 CC Switch；已经装好的直接往下看。下文按 3.20 系列的功能和字段说明，位置可能随版本调整。
+
+<Warning>先结束正在运行的任务，保留原供应商配置。接入 Faro 不需要删除原来的官方账号，也不要导入来历不明的整库备份。</Warning>
+
+## 1. 选择你要配置的客户端
+
+在 CC Switch 主界面选择 **Claude Code** 或 **Codex**，点击右上角 **+** 添加供应商。选择对应的 **Claude Code 供应商** / **Codex 供应商**，再选 **自定义**，名称填 `Faro API`。
+
+不要选择其他商家的预设：预设中的地址、认证方式或额外参数可能不是 Faro 的。
+
+## 2. 填写 Faro 信息
+
+<Tabs>
+  <Tab title="Claude Code">
+    下图按 **v3.20.2** 的字段重建，省略非必要选项，是填写示例，不是实际运行截图。图中的 Key 是占位文字，不能直接使用；点击图片可放大。
+
+    <Frame><img src="/images/cc-switch-claude.png" alt="CC Switch v3.20.2 Claude 配置填写示例：API Key、请求地址根域、Anthropic 原生格式；图中没有真实密钥" /></Frame>
+
+    | 字段 | 填什么 |
+    | --- | --- |
+    | 名称 | `Faro API` |
+    | 官网 | `https://faroapi.com` |
+    | API Key | 你在 Faro 令牌管理里复制的密钥 |
+    | 请求地址 | `https://faroapi.com`，保持“使用完整 URL”关闭 |
+    | 高级选项 → 上游格式 | **Anthropic Messages（原生）** |
+    | 模型 | 从 Faro 模型广场复制的完整 Claude 模型 ID |
+
+    <Accordion title="需要用 JSON 编辑器时再看">
+    如果界面使用 JSON 编辑器，对照下面这些字段。`YOUR_FARO_API_KEY` 和 `YOUR_MODEL_ID` 都要换成自己的值，只在本机填写。
+
+    ```json
+    {
+      "env": {
+        "ANTHROPIC_AUTH_TOKEN": "YOUR_FARO_API_KEY",
+        "ANTHROPIC_BASE_URL": "https://faroapi.com",
+        "ANTHROPIC_MODEL": "YOUR_MODEL_ID"
+      }
+    }
+    ```
+
+    这是一份最小连接示例，不是让你覆盖已有配置文件。认证字段只选一种，不要同时保留相互冲突的旧 API Key 和 Auth Token。需要使用 Sonnet、Opus、Haiku 分档时，分别填写 Faro 支持的对应模型；不要把所有档位随便映射到一个最贵模型。
+    </Accordion>
+  </Tab>
+  <Tab title="Codex">
+    下图按 **v3.20.2** 字段重建，是填写示例，不是实际运行截图。当前版本可直接填图形字段，不必先编辑下面的 JSON/TOML。
+
+    <Frame><img src="/images/cc-switch-codex.png" alt="CC Switch v3.20.2 Codex 填写示例：地址 https://faroapi.com/v1、默认模型、Responses 原生格式" /></Frame>
+
+    | 字段 | 填什么 |
+    | --- | --- |
+    | 名称 | `Faro API` |
+    | API Key | Faro 创建的密钥，不是 ChatGPT 登录凭证 |
+    | API 请求地址 | `https://faroapi.com/v1`，保持“使用完整 URL”关闭 |
+    | 高级选项 → 上游格式 | **Responses（原生）** |
+    | 默认模型 | 支持 Responses 的 Faro 模型完整 ID |
+
+    <Accordion title="界面显示 auth.json / config.toml 时再看">
+    CC Switch 可能显示 `auth.json` 和 `config.toml` 两个编辑区域。密钥放认证区域，模型和地址放配置区域。按当前版本的字段提示填写，不要把 TOML 粘进 JSON 框。
+
+    **auth.json 编辑区域**：将占位符换成自己的 Faro 密钥。只编辑 CC Switch 里这张供应商卡片的认证内容，不是让你删除电脑原有的登录文件。
+
+    ```json
+    {
+      "OPENAI_API_KEY": "YOUR_FARO_API_KEY"
+    }
+    ```
+
+    **config.toml 编辑区域**：
+
+    ```toml
+    model_provider = "faro"
+    model = "YOUR_MODEL_ID"
+
+    [model_providers.faro]
+    name = "Faro API"
+    base_url = "https://faroapi.com/v1"
+    wire_api = "responses"
+    requires_openai_auth = true
+    ```
+
+    这一份是 CC Switch 管理认证文件的配置方式，与 [手动配置教程](/tools/codex) 中通过环境变量提供密钥的方式不同。不要把两套认证方式混在一起。
+    </Accordion>
+
+    先使用支持原生 Responses 的线路，不必为了接入 Faro 默认开启「本地路由映射」。如果你明确要转换 Chat 协议，则需要按 CC Switch 的路由教程配置，并保持本地路由运行。
+  </Tab>
+</Tabs>
+
+## 3. 保存后还要启用
+
+点击添加或保存，再在 Faro 供应商卡片上选择 **启用**。看到「当前启用」后，结束旧客户端会话，重新打开客户端；Codex 尤其需要重新启动来读取配置。
+
+如果当前使用的是代理接管模式，还要检查实际路由选中了哪个供应商。列表里保存了一张 Faro 卡片，不代表请求已经走 Faro。
+
+## 4. 发一句话，检查日志
+
+先保存正在进行的任务并正常退出旧客户端。在一个测试文件夹中打开终端：Claude Code 输入 `claude`，Codex CLI 输入 `codex`；不知道如何打开时看 [启动步骤](/start/install-tools)。看到任务输入框后，新建对话，发送 `只回复“连接成功”，不要调用工具。`。这次请求可能计费。
+
+然后在 [Faro 使用日志](https://faroapi.com/console/log) 核对时间、令牌和模型。测速成功只说明某项检查通过，不证明实际客户端能完成请求。也不要只问“你是什么模型”来确认，模型自称不能证明请求走了哪条线路。
+
+以后再用，先确认 Faro 卡片仍是当前启用，再打开对应客户端。想回到原来的供应商，在 CC Switch 切回原卡片，正常重启客户端即可；不用删除 Faro，也不必重新注册账号。
+
+## 常见卡点
+
+- **模型列表取不到**：先核对密钥和端点；也可以从模型广场手动复制 ID。
+- **切换后还在走旧供应商**：检查「当前启用」、代理接管状态，重启客户端并开新会话。
+- **出现 `/v1/v1`**：检查完整 URL 模式和 Base URL，按上面的客户端分栏填写。
+- **Claude 模型在其他客户端被拒绝**：线路可能限制客户端；不要靠修改请求头伪装，查看 [报错说明](/help/errors)。
+- **“查询用量”失败，但能正常聊天**：用量查询和模型调用不是同一个接口；以 Faro 钱包、使用日志为准，不要因此反复换密钥或充值。
+
+仍不确定时，用 [反馈模板](/help/contact) 描述卡在哪一步，不要发送密钥。
+
+参考：[CC Switch 添加供应商](https://github.com/farion1231/cc-switch/blob/main/docs/user-manual/zh/2-providers/2.1-add.md)、[切换供应商](https://github.com/farion1231/cc-switch/blob/main/docs/user-manual/zh/2-providers/2.2-switch.md)。

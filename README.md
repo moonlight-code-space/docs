@@ -1,55 +1,26 @@
-# Mintlify Starter Kit
+# Faro API 使用文档
 
-Use the starter kit to get your docs deployed and ready to customize.
+独立的 Mintlify 文档站源码。当前为本地验收候选，不代表已经替换 Faro 公网文档入口。
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## 本地预览
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+使用 Node.js 22，并安装 Python 3.11 或更新版本供检查脚本解析 TOML。
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
-
-## AI-assisted writing
-
-Set up your AI coding tool to work with Mintlify:
-
-```bash
-npx skills add https://mintlify.com/docs
+```sh
+npm ci
+npm run check
+npm run validate
+npm run links
+npm run dev
 ```
 
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
+打开 http://127.0.0.1:3240 。预览只绑定本机回环地址，不向局域网提供文档开发服务。若 Python 命令名不同，通过 FARO_DOCS_PYTHON 指定。检查只验证语法、结构、链接等，不会发送真实模型请求。
 
-See the [AI tools guides](/ai-tools) for tool-specific setup.
+## 内容与发布
 
-## Development
-
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
-
-```
-npm i -g mint
-```
-
-Run the following command at the root of your documentation, where your `docs.json` is located:
-
-```
-mint dev
-```
-
-View your local preview at `http://localhost:3000`.
-
-## Publishing changes
-
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
-
-## Need help?
-
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+- 入门入口：index.mdx；页面导航：docs.json。
+- 主教程：CC Switch、Codex++ 桌面管理工具；手动配置仅为补充。
+- 文案、视觉和事实核对规则见 MAINTAINING.md。
+- 示例只用占位密钥，禁止提交个人配置、真实账号截图和生产导出。
+- 默认分支可能触发 Mintlify 自动发布。用户验收前不要推送默认分支，不更新 Faro DocsLink。
+- 本仓库不包含 Faro 后端、数据库或 Open Study 产品代码。

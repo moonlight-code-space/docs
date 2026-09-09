@@ -1,33 +1,23 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
+# Faro 使用文档项目规则
 
-# Documentation project instructions
+本目录是独立 Mintlify 文档项目；同样遵守上级 Faro 项目安全边界。
 
-## About this project
+## 写作
 
-- This is a documentation site built on [Mintlify](https://mintlify.com)
-- Pages are MDX files with YAML frontmatter
-- Configuration lives in `docs.json`
-- Use the Mintlify MCP server, `https://mcp.mintlify.com`, to edit content and settings via MCP
-- Use the Mintlify docs MCP server, `https://www.mintlify.com/docs/mcp`, to query information about using Mintlify via MCP
+- 面向第一次配置 API 的中文读者。先说点哪里、填什么、应该看到什么，再解释概念。
+- 开头提供将教程交给一个已经能用的 AI 的入口。不索取、展示或记录读者的密钥。
+- CC Switch 和 Codex++ GUI 是主要路径；配置工具不等于实际聊天客户端。
+- 真实界面标签加粗；命令、路径和模型 ID 使用代码格式。每段围绕一个动作。
+- 检查第三方项目身份及发布版本，不把同名 CLI 和 GUI 混写。以官方源码/文档确认字段；视频用于了解操作顺序，不直接照抄 ASR 中的命令。
+- 模型价格和线路动态能力链接回 Faro 当前页面，不写未经验证的全模型支持承诺。
 
-## Terminology
+## 实现与验证
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+- MDX 页面使用已有 Mintlify 原生组件，配置入口为 docs.json。优先用本地锁定 CLI 校验。
+- 配图用空白或虚构数据，标明真实截图或重建示例，以及核对版本。
+- 所有可发布 MDX 都检查，不仅是导航页；代码语法、站内链接、敏感信息、桌面/手机、明暗主题、复制操作都纳入验收。
+- 离线模拟、Agent 角色走查和真人实际操作必须分别报告。未经用户同意不发真实付费请求。
+- 本地验收期间不得推送会自动发布的默认分支或改 Faro 公网文档入口。
+- 不接触生产应用、客户数据、支付、渠道、模型配置，不修改本机 Codex/CC Switch 登录和供应商。
 
-## Style preferences
-
-{/* Add any project-specific style rules below */}
-
-- Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
-
-## Content boundaries
-
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+更多内容约定见 MAINTAINING.md。维护说明、脚本和本文件不作为公开文档页面发布。

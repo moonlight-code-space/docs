@@ -1,0 +1,41 @@
+---
+title: "Claude Code：不使用 CC Switch 的配置方法"
+sidebarTitle: "Claude Code 手动配置"
+description: "只在需要手动管理时看这一页，已经用 CC Switch 的不用再重复设置。"
+---
+
+更习惯图形界面的话，先看 [CC Switch 教程](/tools/cc-switch)。下面是 Claude Code CLI 的最小配置，不适用于 Claude 网页聊天，也不能直接当成所有桌面端的配置方法。
+
+还没安装？先完成 [客户端安装](/start/install-tools)。不知道在哪里找文件？先看 [打开配置文件与备份](/start/terminal-and-files)。
+
+## 填写三个值
+
+| 配置项 | 值 |
+| --- | --- |
+| `ANTHROPIC_BASE_URL` | `https://faroapi.com` |
+| `ANTHROPIC_AUTH_TOKEN` | Faro API 密钥 |
+| `ANTHROPIC_MODEL` | Faro 支持的完整 Claude 模型 ID |
+
+在用户级 `.claude/settings.json` 中合并需要的字段。保留原文件其他设置，先备份，不要创建两份 `env`。
+
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://faroapi.com",
+    "ANTHROPIC_AUTH_TOKEN": "YOUR_FARO_API_KEY",
+    "ANTHROPIC_MODEL": "YOUR_MODEL_ID"
+  }
+}
+```
+
+真实密钥只在本机填写，不要提交这份文件到项目仓库。已有其他认证变量或企业配置时，先检查优先级与冲突，不要直接删掉登录文件。
+
+## 确认生效
+
+重新打开 Claude Code，运行 `/status` 查看当前地址、认证方式和模型，再发送一句短话。在 [Faro 日志](https://faroapi.com/console/log) 找到对应记录，确认这次请求经过 Faro。
+
+如果模型列表、权限或客户端限制报错，先核对准确模型 ID 和线路要求。Anthropic 协议兼容，不代表每个 Claude 线路都允许任何客户端使用。
+
+失败时先看 [常见报错](/help/errors)，仍不确定可用 [反馈模板](/help/contact) 求助。
+
+参考：[Claude Code 官方网关配置](https://code.claude.com/docs/en/llm-gateway-connect)。
