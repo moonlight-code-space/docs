@@ -58,6 +58,10 @@ for (const page of publishedPages) {
 for (const asset of [config.logo.light, config.logo.dark, config.favicon]) assert(existsSync(join(root,asset.slice(1))), `missing asset ${asset}`);
 assert.deepEqual(pages.filter(p => p.startsWith('tools/')), ['tools/cc-switch', 'tools/codex-plus'], 'only two API manager entries');
 assert(read('index.mdx').includes('https://faroapi.com/`') && read('index.mdx').includes('https://faroapi.com/v1`'), 'both dashboard addresses must be explicit');
+assert(read('index.mdx').includes('默认填写通用地址，不带') && read('index.mdx').includes('按管理器要求'), 'general base URL must be default, Codex must be scoped');
+assert(!read('index.mdx').includes('配置 Claude Code 时使用'), 'general address is not Claude-only');
+assert(read('tools/cc-switch.mdx').indexOf('<Tab title="Claude Code">') < read('tools/cc-switch.mdx').indexOf('<Tab title="Codex">'), 'show general-address setup first');
+assert(read('tools/codex-plus.mdx').includes('本页配置的是 **Codex（GPT）**'), 'scope the Codex++ v1 example to Codex');
 assert(read('tools/cc-switch.mdx').includes('获取模型列表') && read('tools/codex-plus.mdx').includes('从上游获取'), 'model retrieval is a required step');
 console.log(JSON.stringify({navigationPages:pages.length, publishedPages:publishedPages.length, localLinks:links, jsonBlocks, pythonBlocks, tomlBlocks, problems},null,2));
 process.exitCode = problems.length ? 1 : 0;

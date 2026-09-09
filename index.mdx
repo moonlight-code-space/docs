@@ -17,10 +17,12 @@ AI 打不开链接时，点 **复制页面**，把正文发给它。**不要发�
 
 ## 第一步：准备地址和密钥
 
-| 线路 | 地址 | 什么时候填 |
-| --- | --- | --- |
-| 通用国内优化极速线路 | `https://faroapi.com/` | 配置 Claude Code 时使用 |
-| GPT 专用线路 | `https://faroapi.com/v1` | 配置 Codex、Codex++ 时使用 |
+**默认填写通用地址，不带 `/v1`。** 只有配置 Codex（GPT）时，按管理器要求使用带 `/v1` 的地址。
+
+| 配置情况 | Base URL |
+| --- | --- |
+| 常规配置（默认） | `https://faroapi.com/` |
+| Codex / GPT 配置（按管理器要求） | `https://faroapi.com/v1` |
 
 **API Key** 在 [Faro → 令牌管理](https://faroapi.com/console/token) 中创建和复制。[不会创建？看这里](/start/api-key)。
 

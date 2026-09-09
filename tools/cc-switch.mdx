@@ -10,20 +10,9 @@ description: "填地址和密钥 → 获取模型 → 选择模型 → 保存并
 
 打开 CC Switch，选择你要用的 **Codex** 或 **Claude Code**，点击 **+ → 自定义**，名称填 `Faro API`。
 
+通常填写通用地址 `https://faroapi.com/`；配置 **Codex（GPT）** 时，按下面的 Codex 分栏填写。
+
 <Tabs>
-  <Tab title="Codex">
-    | 字段 | 填什么 |
-    | --- | --- |
-    | API 请求地址 | `https://faroapi.com/v1` |
-    | API Key | 从 Faro 令牌管理复制的密钥 |
-
-    其他选项先保持默认。若出现 **上游格式**，选择 **Responses（原生）**；**使用完整 URL** 保持关闭。
-
-    <Accordion title="查看填写示例图">
-      CC Switch v3.20.2 字段示意，非实机截图。
-      <Frame><img src="/images/cc-switch-codex.png" alt="CC Switch Codex 填写示例：API 请求地址 https://faroapi.com/v1，API Key 填自己的密钥" /></Frame>
-    </Accordion>
-  </Tab>
   <Tab title="Claude Code">
     | 字段 | 填什么 |
     | --- | --- |
@@ -35,6 +24,19 @@ description: "填地址和密钥 → 获取模型 → 选择模型 → 保存并
     <Accordion title="查看填写示例图">
       CC Switch v3.20.2 字段示意，非实机截图。
       <Frame><img src="/images/cc-switch-claude.png" alt="CC Switch Claude Code 填写示例：通用地址 https://faroapi.com/，API Key 填自己的密钥" /></Frame>
+    </Accordion>
+  </Tab>
+  <Tab title="Codex">
+    | 字段 | 填什么 |
+    | --- | --- |
+    | API 请求地址 | `https://faroapi.com/v1` |
+    | API Key | 从 Faro 令牌管理复制的密钥 |
+
+    其他选项先保持默认。若出现 **上游格式**，选择 **Responses（原生）**；**使用完整 URL** 保持关闭。
+
+    <Accordion title="查看填写示例图">
+      CC Switch v3.20.2 字段示意，非实机截图。
+      <Frame><img src="/images/cc-switch-codex.png" alt="CC Switch Codex 填写示例：API 请求地址 https://faroapi.com/v1，API Key 填自己的密钥" /></Frame>
     </Accordion>
   </Tab>
 </Tabs>
