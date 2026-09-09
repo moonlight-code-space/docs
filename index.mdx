@@ -1,51 +1,47 @@
 ---
-title: "把 Faro 接进你常用的 AI 工具"
+title: "用 Faro 配好你的 AI 工具"
 sidebarTitle: "从这里开始"
-description: "准备好地址、密钥和模型，跟着步骤完成第一次调用。"
+description: "填地址和密钥，获取模型，选好后保存使用。"
 icon: "house"
 ---
 
-## 不会配置？先让 AI 带你做
+## 不会操作？让 AI 一步步教你
 
-把本页链接或文档内容发给你已经能用的 AI，例如豆包、ChatGPT。告诉它你的电脑系统和准备使用的软件，让它一次只教一步。你不需要先看懂整篇教程。
+把这页或对应教程发给你已经能用的 AI，比如豆包、ChatGPT。让它教你点哪里、填什么，不用先读懂所有内容。
 
-<Prompt description="复制这段话，和本页链接一起发给 AI" actions={["copy"]}>
-请根据我提供的 Faro API 文档，带我完成配置。我是新手，请先问我用的是 Windows 还是 macOS，以及准备配置 CC Switch、Codex++ 还是其他工具。一次只告诉我一步：在哪里点、填什么、完成后应该看到什么，等我确认再继续。不要索要或让我发送 API 密钥、密码、Cookie；密钥由我直接在本机填写。以文档和我实际的软件版本为准，遇到报错先解释原因，不要反复重装或重试。测试前说明可能计费，先征得我的确认，再让我发送一句短话，并到 Faro 使用日志确认请求。
+<Prompt description="复制这段话，和教程一起发给 AI" actions={["copy"]}>
+请按这份 Faro 教程带我配置。我是新手，先问我用 Windows 还是 Mac、用 Codex++ 还是 CC Switch。一次只教一步：在哪里点、填什么、应该看到什么，等我确认后再继续。按“填 Base URL 和 API Key→获取模型→对照 Faro 模型广场选择→保存并启用”的顺序来，不要让我写代码或编辑配置文件。密钥由我自己填，不要让我发给你；保留原来的配置。测试可能计费，先问我，再用一句短话确认能否正常回复。
 </Prompt>
 
-已经有能操作电脑的 Agent？也可以让它帮助配置，但先备份已有设置，密钥仍由你在本机输入。[看 AI 辅助配置的两种方式](/start/ask-ai)。如果还没有可用的 AI，直接按下面的教程操作即可。
+AI 打不开链接时，用本页上方的 **复制页面**，把正文发给它。密钥不要发给 AI 或群友。[查看详细说明](/start/ask-ai)。
 
-## 接下来只需要三个东西
+## 第一步：准备地址和密钥
 
-Faro 提供 API 接口。你可以在 CC Switch、Codex++ 等工具里配置它，也可以接到自己的程序中。
+地址与 Faro 控制台中的 **API 信息** 一致：
 
-<div className="faro-setup">
-  <div><strong>01 · 地址</strong><p>告诉工具向哪里发送请求。</p><code>https://faroapi.com</code></div>
-  <div><strong>02 · 密钥</strong><p>在「令牌管理」里创建，只填进你信任的工具。</p><code>API Key</code></div>
-  <div><strong>03 · 模型</strong><p>从「模型广场」复制完整名称，别凭印象手打。</p><code>模型 ID</code></div>
-</div>
+| 线路 | 地址 | 什么时候填 |
+| --- | --- | --- |
+| 通用国内优化极速线路 | `https://faroapi.com/` | 配置 Claude Code 时使用 |
+| GPT 专用线路 | `https://faroapi.com/v1` | 配置 Codex、Codex++ 时使用 |
 
-<Note>上面的地址是网站根地址。Codex 和多数 OpenAI 兼容工具需要在末尾加 `/v1`；各篇教程会给出可以直接复制的地址。</Note>
+**API Key** 在 [Faro → 令牌管理](https://faroapi.com/console/token) 中创建和复制。[不会创建？看这里](/start/api-key)。
 
-## 你准备怎么用？
+## 第二步：打开你的 API 管理器
+
+选你正在用的一个，不需要两个都装。
 
 <CardGroup cols={2}>
-  <Card title="第一次使用 Faro" icon="flag" href="/start/quickstart">从注册、创建密钥开始，走完一遍再配置工具。</Card>
-  <Card title="用 CC Switch 配置" icon="toggle-right" href="/tools/cc-switch">在界面里添加 Faro，再切换到 Claude Code 或 Codex。</Card>
-  <Card title="在 Codex++ 中使用" icon="monitor" href="/tools/codex-plus">打开管理工具，添加 Faro，再从 Codex++ 启动。</Card>
-  <Card title="接进自己的程序" icon="code" href="/api/first-request">用一条短请求检查地址、密钥和模型。</Card>
+  <Card title="CC Switch" icon="toggle-right" href="/tools/cc-switch">选择 Codex 或 Claude Code，填地址和密钥，再获取模型。</Card>
+  <Card title="Codex++" icon="monitor" href="/tools/codex-plus">打开管理工具，添加 Faro，获取模型后保存使用。</Card>
 </CardGroup>
 
-## 已经配置过，但用不了？
+还没安装？看 [下载与打开工具](/start/install-tools)。
 
-先看报错，不要来回重装软件。
+## 第三步：获取模型，选好后使用
 
-| 你遇到的情况 | 先看这里 |
-| --- | --- |
-| 不知道地址要不要加 `/v1` | [地址与模型怎么填](/start/address-and-model) |
-| 提示 401、403、404 或 429 | [按报错排查](/help/errors) |
-| 一直转圈、没出字、输出中断 | [连接慢与流式问题](/help/connection) |
-| 钱花得比预期快 | [计费和缓存怎么看](/account/cost-and-cache) |
-| 配好后想确认有没有走 Faro | [查看使用日志](/account/logs) |
+1. 在管理器里填好 **Base URL** 和 **API Key**。
+2. 点击 **获取模型列表**；Codex++ 中叫 **从上游获取**。
+3. 打开 [模型广场](https://faroapi.com/pricing)，看好想用的模型和价格，再回到列表选中**一模一样的名字**，后缀也保留。
+4. 保存，再点 **启用** 或 **使用**。重新打开对应的 AI 工具，新建对话即可。
 
-<Tip>Faro API 余额、ChatGPT / Claude 会员和 Open Study 的账户额度不是同一回事。使用 API 前，先确认你要用的是哪项服务。</Tip>
+第一次只发一句短话确认能回复，测试也可能计费。遇到问题先看 [常见问题](/help/errors)，不用一上来重装软件。

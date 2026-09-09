@@ -2,26 +2,186 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Faro API",
-  "description": "从创建密钥到第一次调用，按步骤把 Faro API 接入 CC Switch、Codex++ 和常用 AI 工具。",
-  "colors": {"primary": "#155EEF", "light": "#155EEF", "dark": "#70A5FF"},
-  "logo": {"light": "/logo/light.svg", "dark": "/logo/dark.svg"},
+  "description": "用 Codex++ 或 CC Switch 配置 Faro：填地址和密钥，获取模型，保存使用。",
+  "colors": {
+    "primary": "#155EEF",
+    "light": "#155EEF",
+    "dark": "#70A5FF"
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
   "favicon": "/favicon.svg",
-  "appearance": {"default": "system"},
-  "redirects": [{"source": "/quickstart", "destination": "/start/quickstart"}],
-  "icons": {"library": "lucide"},
-  "search": {"prompt": "搜索工具、配置或报错…"},
-  "contextual": {"options": ["copy", "view"]},
-  "navigation": {"languages": [{"language": "zh", "default": true, "groups": [
-    {"group": "先用起来", "pages": ["index", "start/ask-ai", "start/quickstart", "start/install-tools", "start/api-key", "start/address-and-model"]},
-    {"group": "配置 AI 工具", "pages": ["tools/cc-switch", "tools/codex-plus", "tools/claude-code", "tools/codex", "tools/other-clients"]},
-    {"group": "写进自己的程序", "pages": ["start/terminal-and-files", "api/first-request", "api/streaming", "api/images"]},
-    {"group": "用量与账户", "pages": ["account/wallet", "account/logs", "account/cost-and-cache", "account/security"]},
-    {"group": "遇到问题", "pages": ["help/errors", "help/connection", "help/contact"]}
-  ]}]},
-  "navbar": {"links": [{"label": "模型广场", "href": "https://faroapi.com/pricing"}, {"label": "模型监控", "href": "https://faroapi.com/about"}], "primary": {"type": "button", "label": "进入控制台", "href": "https://faroapi.com/console"}},
-  "footer": {"links": [
-    {"header": "Faro API", "items": [{"label": "网站首页", "href": "https://faroapi.com/"}, {"label": "获取 API 密钥", "href": "https://faroapi.com/console/token"}]},
-    {"header": "使用帮助", "items": [{"label": "第一次使用", "href": "/start/quickstart"}, {"label": "排查报错", "href": "/help/errors"}, {"label": "联系支持", "href": "/help/contact"}]},
-    {"header": "其他项目", "items": [{"label": "AI 代充", "href": "https://shop.faroapi.com/"}, {"label": "Open Study", "href": "https://study.faroapi.cn/"}]}
-  ]}
+  "appearance": {
+    "default": "system"
+  },
+  "redirects": [
+    {
+      "source": "/quickstart",
+      "destination": "/"
+    },
+    {
+      "source": "/start/quickstart",
+      "destination": "/"
+    },
+    {
+      "source": "/start/address-and-model",
+      "destination": "/"
+    },
+    {
+      "source": "/tools/codex",
+      "destination": "/tools/cc-switch"
+    },
+    {
+      "source": "/tools/claude-code",
+      "destination": "/tools/cc-switch"
+    },
+    {
+      "source": "/tools/other-clients",
+      "destination": "/tools/cc-switch"
+    },
+    {
+      "source": "/start/terminal-and-files",
+      "destination": "/"
+    },
+    {
+      "source": "/api/first-request",
+      "destination": "/"
+    },
+    {
+      "source": "/api/streaming",
+      "destination": "/"
+    },
+    {
+      "source": "/api/images",
+      "destination": "/"
+    },
+    {
+      "source": "/account/logs",
+      "destination": "/account/wallet"
+    },
+    {
+      "source": "/account/cost-and-cache",
+      "destination": "/account/wallet"
+    },
+    {
+      "source": "/account/security",
+      "destination": "/account/wallet"
+    },
+    {
+      "source": "/help/connection",
+      "destination": "/help/errors"
+    }
+  ],
+  "icons": {
+    "library": "lucide"
+  },
+  "search": {
+    "prompt": "搜索工具、配置或报错…"
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view"
+    ]
+  },
+  "navigation": {
+    "languages": [
+      {
+        "language": "zh",
+        "default": true,
+        "groups": [
+          {
+            "group": "开始使用",
+            "pages": [
+              "index",
+              "start/api-key",
+              "start/ask-ai"
+            ]
+          },
+          {
+            "group": "选择 API 管理器",
+            "pages": [
+              "tools/cc-switch",
+              "tools/codex-plus"
+            ]
+          },
+          {
+            "group": "需要帮助时",
+            "pages": [
+              "start/install-tools",
+              "account/wallet",
+              "help/errors",
+              "help/contact"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "模型广场",
+        "href": "https://faroapi.com/pricing"
+      },
+      {
+        "label": "模型监控",
+        "href": "https://faroapi.com/about"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "进入控制台",
+      "href": "https://faroapi.com/console"
+    }
+  },
+  "footer": {
+    "links": [
+      {
+        "header": "Faro API",
+        "items": [
+          {
+            "label": "网站首页",
+            "href": "https://faroapi.com/"
+          },
+          {
+            "label": "获取 API 密钥",
+            "href": "https://faroapi.com/console/token"
+          }
+        ]
+      },
+      {
+        "header": "使用帮助",
+        "items": [
+          {
+            "label": "第一次使用",
+            "href": "/"
+          },
+          {
+            "label": "排查报错",
+            "href": "/help/errors"
+          },
+          {
+            "label": "联系支持",
+            "href": "/help/contact"
+          }
+        ]
+      },
+      {
+        "header": "其他项目",
+        "items": [
+          {
+            "label": "AI 代充",
+            "href": "https://shop.faroapi.com/"
+          },
+          {
+            "label": "Open Study",
+            "href": "https://study.faroapi.cn/"
+          }
+        ]
+      }
+    ]
+  }
 }

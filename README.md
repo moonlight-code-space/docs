@@ -19,7 +19,8 @@ npm run dev
 ## 内容与发布
 
 - 入门入口：index.mdx；页面导航：docs.json。
-- 主教程：CC Switch、Codex++ 桌面管理工具；手动配置仅为补充。
+- 主教程只保留 CC Switch、Codex++ 两个 API 管理器。Codex 是配置后使用的工具，不另写手动配置教程。
+- 当前公开内容精简为 9 页；原有 13 页高级/重复说明保存在 drafts/advanced-v1，不对外发布。
 - 文案、视觉和事实核对规则见 MAINTAINING.md。
 - 示例只用占位密钥，禁止提交个人配置、真实账号截图和生产导出。
 - 默认分支可能触发 Mintlify 自动发布。用户验收前不要推送默认分支，不更新 Faro DocsLink。

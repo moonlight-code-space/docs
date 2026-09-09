@@ -1,85 +1,32 @@
 ---
-title: "先装好实际使用的 AI 工具"
-sidebarTitle: "安装与打开工具"
-description: "配置工具负责填地址和密钥；Claude Code、Codex 才是你输入任务的地方。"
+title: "下载与打开工具"
+sidebarTitle: "下载工具"
+description: "已经装好了就跳过这一页，不用重复安装。"
 ---
 
-已经能打开 Claude Code 或 Codex 并看到任务输入框？可以跳过安装，直接看 [CC Switch](/tools/cc-switch) 或 [Codex++](/tools/codex-plus)。
+## 选一个管理器
 
-## 我到底要装哪几个？
+| 你准备怎么用 | 从哪里下载 |
+| --- | --- |
+| 用 CC Switch 配置 Codex / Claude Code | [CC Switch 下载页](https://github.com/farion1231/cc-switch/releases) |
+| 用 Codex++ 配置桌面应用 | [Codex++ 下载页](https://github.com/BigPizzaV3/CodexPlusPlus/releases) |
 
-| 你想怎么用 | 需要什么 | 最后在哪里输入任务 |
-| --- | --- | --- |
-| 用 Claude Code | Claude Code + CC Switch | 终端里的 Claude Code |
-| 用 Codex 命令行 | Codex CLI + CC Switch | 终端里的 Codex |
-| 用 Codex 桌面界面 | 官方桌面应用 + Codex++ | 由 Codex++ 启动的桌面应用 |
+下载页里的 **Assets** 是安装文件。选与你电脑对应的 Windows 或 Mac 安装包，**不要选 Source code**。
 
-CC Switch 和 Codex++ 是第三方配置管理工具，不是 Faro 自己的软件。**同一个客户端先只选一种配置管理方式**，避免一边保存、另一边又覆盖。
+Mac 不知道选哪个版本：打开苹果菜单 → **关于本机**。Apple 芯片对应 arm64；Intel 对应 x64。还要看软件支持的系统版本，不是每台电脑都能安装。
 
-<Tip>不会打开终端也没关系，先把这页交给 [已经能用的 AI](/start/ask-ai)。安装遇到拦截时，核对下载来源和系统要求；不要为了继续安装就关闭整个电脑的安全防护。</Tip>
+## 还要安装 Codex / Claude Code 吗？
 
-## 下载 CC Switch / Codex++ 时怎么选
+**CC Switch 是管理配置的地方，不是在里面聊天。** 你还需要装好要使用的 Codex 或 Claude Code。
 
-进入项目的 **Releases** 页面，展开版本下面的 **Assets**（安装文件列表）。不要下载 `Source code`，那是给开发者的源码。
+**Codex++** 也要按它的安装说明准备好对应的官方桌面应用；打开 **Codex++ 管理工具 → 概览**，确认能找到应用。
 
-- **Windows**：选说明中标注 Windows 的安装包，通常是 `.exe` 或 `.msi`。不要把 Mac 的 `.dmg` 下载下来。
-- **Mac**：点左上角苹果菜单 → **关于本机**。显示 Apple 芯片就选 `arm64` / Apple Silicon；显示 Intel 就选 `x64` / Intel。若作者提供 Universal 通用版，也可按发布说明选择。
+<Tip>不会安装时，把这页和电脑系统发给你已经能用的 AI，让它按官方说明一步步带你做。不用自己研究命令或配置文件，也不要关闭电脑的安全防护来强行安装。</Tip>
 
-[CC Switch 发布页](https://github.com/farion1231/cc-switch/releases) · [Codex++ 发布页](https://github.com/BigPizzaV3/CodexPlusPlus/releases)
+装好后回到 [CC Switch 教程](/tools/cc-switch) 或 [Codex++ 教程](/tools/codex-plus)，填地址和密钥即可。
 
-## 安装 Claude Code
+<Accordion title="CC Switch 配好后，在哪里打开 Codex / Claude Code？">
+如果你使用的是终端版，先在桌面新建一个空测试文件夹。在 VS Code 中点 **文件 → 打开文件夹** 选中它，再点 **终端 → 新建终端**。
 
-这里安装的是终端版 Claude Code，不是 Claude 网页聊天。先阅读 [官方系统要求和安装说明](https://code.claude.com/docs/en/setup)，选择与你系统对应的方法。
-
-<Tabs>
-  <Tab title="macOS">
-    按 **Command + 空格**，搜索并打开 **终端**。下面是官方安装入口；执行前可以先打开链接检查来源，不要换成陌生人提供的脚本。
-
-    ```bash
-    curl -fsSL https://claude.ai/install.sh | bash
-    ```
-  </Tab>
-  <Tab title="Windows">
-    在开始菜单搜索并打开 **PowerShell**，不是 CMD，也不是 AI 聊天窗口。下面是官方安装入口，不需要为了这一步以管理员身份运行。
-
-    ```powershell
-    irm https://claude.ai/install.ps1 | iex
-    ```
-  </Tab>
-</Tabs>
-
-安装结束后，关闭这个终端，再打开一个新的终端，输入：
-
-```bash
-claude --version
-```
-
-出现版本号才算装好。提示“找不到命令”时，先按安装器提示检查路径，或把不含密钥的报错交给 AI；此时还没发模型请求，不是 Faro 余额问题。
-
-接着回到 [CC Switch](/tools/cc-switch) 添加并启用 Faro。配置完成后，先在桌面新建一个空文件夹作为测试目录。使用 VS Code 时，点 **文件 → 打开文件夹** 选中它，再点 **终端 → 新建终端**；终端就位于这个文件夹中。没有代码编辑器时，可以把“帮我在这个空文件夹打开终端”连同系统名称交给 [AI](/start/ask-ai) 一步步操作。
-
-在终端输入 `claude`，按客户端提示确认是否信任这个测试文件夹；看到任务输入框后再发第一句话。Codex CLI 同样在空测试文件夹中输入 `codex`。不要一上来选择整块磁盘或包含私人文件的目录。
-
-## 安装 Codex CLI
-
-只想用桌面界面的读者可以跳到下一节。
-
-1. 从 [Node.js 官网](https://nodejs.org/en/download) 安装 LTS 版本，重新打开终端。分别输入 `node --version` 和 `npm --version`，应该显示版本号。
-2. 按 [Codex 官方 CLI 安装说明](https://learn.chatgpt.com/docs/codex/cli) 安装：
-
-```bash
-npm install -g @openai/codex
-codex --version
-```
-
-3. 回到 [CC Switch 的 Codex 分栏](/tools/cc-switch) 添加并启用 Faro。完成后在终端输入 `codex`，新建对话输入任务。不要把示例命令粘进已经打开的 AI 对话框。
-
-## 使用 Codex++ 桌面入口
-
-先从 [OpenAI 官方桌面应用下载说明](https://learn.chatgpt.com/docs/app) 准备桌面应用，再安装 Codex++。官方页面现在可能显示 **ChatGPT desktop app**，不一定仍写 Codex；不要因为名称变化就去同名下载站找安装包。安装前对照 [Codex++ 发布说明](https://github.com/BigPizzaV3/CodexPlusPlus/releases/tag/v1.2.56) 检查支持的应用版本。
-
-**系统要同时符合两边的要求**：Codex++ 发布页提供 Windows x64 和 Mac arm64 / x64 安装包，但不代表官方应用支持每一种旧系统或 Intel Mac。官方当前 Mac 下载入口标注 Apple Silicon；你的系统若不在双方支持范围内，先改用 [Codex CLI](/tools/codex)，不要勉强安装。我们核对了管理器对新旧应用名称的识别代码，但没有把“识别到路径”当成所有应用版本兼容的保证。
-
-安装后通常有 **Codex++** 和 **Codex++ 管理工具** 两个入口。第一次打开管理工具，确认 **概览** 能识别官方应用路径；找不到应用时先解决安装或路径问题，再去填密钥。下一步看 [Codex++ 配置教程](/tools/codex-plus)。
-
-遇到问题先看 [常见报错](/help/errors)，或使用 [反馈模板](/help/contact)。
+使用 Codex 输入 `codex`；使用 Claude Code 输入 `claude`。看到输入框后，就可以发任务。没有 VS Code 或不知道怎么打开终端，把这一步交给 AI 教你即可。
+</Accordion>

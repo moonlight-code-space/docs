@@ -24,6 +24,7 @@ for (const page of publishedPages) {
   const file = `${page}.mdx`;
   if (!existsSync(join(root, file))) { report(file, 'missing page'); continue; }
   const body = read(file);
+  if (/```(?:json|toml|python|bash|powershell)\b/.test(body)) report(file, 'advanced code belongs in internal drafts, not beginner guides');
   if (/your-package|your-cli|support@yourcompany|Requirement one|Describe how someone/.test(body)) report(file, 'starter template content');
   if (!/^---\n[\s\S]*?title: "[^"\n]+"[\s\S]*?\n---\n/.test(body)) report(file, 'missing title/frontmatter');
   if (!/^description: "[^"\n]+"$/m.test(body)) report(file, 'missing description');
@@ -54,5 +55,8 @@ for (const page of publishedPages) {
   }
 }
 for (const asset of [config.logo.light, config.logo.dark, config.favicon]) assert(existsSync(join(root,asset.slice(1))), `missing asset ${asset}`);
+assert.deepEqual(pages.filter(p => p.startsWith('tools/')), ['tools/cc-switch', 'tools/codex-plus'], 'only two API manager entries');
+assert(read('index.mdx').includes('https://faroapi.com/`') && read('index.mdx').includes('https://faroapi.com/v1`'), 'both dashboard addresses must be explicit');
+assert(read('tools/cc-switch.mdx').includes('获取模型列表') && read('tools/codex-plus.mdx').includes('从上游获取'), 'model retrieval is a required step');
 console.log(JSON.stringify({navigationPages:pages.length, publishedPages:publishedPages.length, localLinks:links, jsonBlocks, pythonBlocks, tomlBlocks, problems},null,2));
 process.exitCode = problems.length ? 1 : 0;
